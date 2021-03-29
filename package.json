@@ -1,0 +1,83 @@
+{
+  "name": "ef_sendemail",
+  "productName": "LTGSendEmail",
+  "version": "1.0.0",
+  "description": "My Electron application description",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "echo \"No linting configured\"",
+    "build-installer": "electron-builder",
+    "rebuild": "eletron-rebuild -f -w sqlite3"
+  },
+  "build": {
+    "appId": "ef_sendemail",
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "src/icon.ico",
+      "requestedExecutionLevel": "requireAdministrator"
+    },
+    "nsis": {
+      "installerIcon": "src/icon.ico",
+      "uninstallerIcon": "src/icon.ico",
+      "uninstallDisplayName": "LTGSendEmail",
+      "license": "license.txt",
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "keywords": [],
+  "author": "emylyn.audemard",
+  "license": "MIT",
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "ef_sendemail"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
+  },
+  "dependencies": {
+    "bootstrap": "^4.6.0",
+    "electron-squirrel-startup": "^1.0.0",
+    "format-currency": "^1.0.0",
+    "jquery": "^3.6.0",
+    "knex": "^0.95.4",
+    "nodemailer": "^6.5.0",
+    "sqlite3": "^5.0.2",
+    "xlsx": "^0.16.9"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.54",
+    "@electron-forge/maker-deb": "^6.0.0-beta.54",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.54",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
+    "@electron-forge/maker-zip": "^6.0.0-beta.54",
+    "electron": "12.0.2",
+    "electron-builder": "^22.10.5"
+  }
+}

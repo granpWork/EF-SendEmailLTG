@@ -1,0 +1,7 @@
+Creating installer:
+https://www.youtube.com/watch?v=TnXz_nnQZrw&t=670s
+
+npm run build-installer
+==========================================
+SQLite3 Problem:
+https://stackoverflow.com/questions/58073775/error-with-node-pre-gyp-when-installing-sqlite3
