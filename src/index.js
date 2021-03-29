@@ -159,23 +159,30 @@ ipcMain.on('send-mail-trigger', (event, smtpCred) => {
   let obj = new Object();
 
   getExcelData().forEach(dt => {
-    obj.email = `${dt["EMAIL ADDRESS"]}`
-    obj.comapny = getCompanyName(`${dt.COMPANY}`);
-    obj.companyCode = `${dt.COMPANY}`;
-    obj.empNumber = `${dt["EMPLOYEE ID"]}`;
-    obj.name = `${dt.NAME}`;
-    obj.modernaOrders = `${dt["MODERNA ORDERS"]}`;
-    obj.covovaxOrders = `${dt["COVOVAX ORDERS"]}`;
-    obj.modernaControlNumber = generateControlNumbers(`${dt.COMPANY}`, `${dt["EMPLOYEE ID"]}`, "moderna", `${dt["MODERNA ORDERS"]}`);
-    obj.covovaxControlNumber = generateControlNumbers(`${dt.COMPANY}`, `${dt["EMPLOYEE ID"]}`, "covovax", `${dt["COVOVAX ORDERS"]}`);
-    obj.modernaTotalCost = formatCurrency(modernaTotalCost(`${dt["MODERNA ORDERS"]}`), opts);
-    obj.covovaxTotalCost = formatCurrency(covovaxTotalCost(`${dt["COVOVAX ORDERS"]}`), opts);
-    obj.regLink = registrationURLMapping(`${dt.COMPANY}`);
-    obj.vaccineTotalCost = formatCurrency(vaccineTotalCost(modernaTotalCost(`${dt["MODERNA ORDERS"]}`), covovaxTotalCost(`${dt["COVOVAX ORDERS"]}`)), opts);
-
-    console.log("=================================")
-    main(smtpCred, JSON.stringify(obj)).catch(console.error);
+    if(`${dt["Email Address"]}` !== "undefined"){
+      obj.firstName = `${dt["First Name"]}`
+      obj.lastName = `${dt["Last Name"]}`
+      obj.middleName = `${dt["Middle Name"]}`
+      obj.email = `${dt["Email Address"]}`
+      obj.companyCode = `${dt["Company Code"]}`
+      obj.empNumber = `${dt["Employee Number"]}`
+      obj.comapny = getCompanyName(obj.companyCode);
+      obj.name = `${dt["First Name"]}`+" "+`${dt["Middle Name"]}`+" "+`${dt["Last Name"]}`;
+      obj.modernaOrders = `${dt["For how many people are you reserving Moderna vaccines?"]}`;
+      obj.covovaxOrders = `${dt["For how many people are you reserving Covovax (Novavax) vaccines?"]}`;
+      obj.modernaControlNumber = `${dt["Moderna Reservation Control Numbers"]}`
+      obj.covovaxControlNumber = `${dt["Covovax Reservation Control Numbers"]}`
+      obj.modernaTotalCost = formatCurrency(modernaTotalCost(obj.modernaOrders), opts);
+      obj.covovaxTotalCost = formatCurrency(covovaxTotalCost(obj.covovaxOrders), opts);
+      obj.regLink = registrationURLMapping(`${dt["Company Code"]}`);
+      obj.vaccineTotalCost = formatCurrency(vaccineTotalCost(modernaTotalCost(obj.modernaOrders), covovaxTotalCost(obj.covovaxOrders)), opts);
+   
+    }
+      // console.log("=================================")
+      main(smtpCred, JSON.stringify(obj)).catch(console.error);
   })
+
+  event.reply('email-sent-response', 'completed!')
 });
 
 async function verifySMTP(smtp_c){
@@ -251,7 +258,7 @@ async function main(smtp_c, obj_json) {
     html: `<p style="line-height:18px;">Dear <b>${name},</b><br /> Employee Number: ${employeeID}<br /> ${company}<br/></p> <p>This is to confirm the orders you have placed are as follows:</p> <p style="margin-left: 40px">${modernaOrders} <b>MODERNA</b></p> <p style="margin-left: 60px;line-height:18px;">With control numbers:<br /><span style="margin-left: 0px;"></span><b>${modernaControlNumbers}</b></p> <p style="margin-left: 40px;">And</p> <p style="margin-left: 40px">${covovaxOrders} <b>COVOVAX (NOVAVAX)</b></p> <p style="margin-left: 60px;line-height:18px;">With control numbers:<br /><span style="margin-left: 0px;"><b>${covovaxControlNumbers}</b></span></p> <p>Please ensure that the provided control numbers are used as you register your household / family members' information. Below is the link to the Registration form.</p> <p>CLICK HERE TO REGISTER	 : ${registrationURL}</URL></p> <p>The total cost of your order is <b>${vaccineTotalCost}</b>. Please see the breakdown below:</p> <p style="line-height:18px;"> Moderna = ${modernaOrders} x Php 3,700 = Php ${modernaTotalCost}<br /> Covovax (Novavax) = ${covovaxOrders} x Php 3,000 = Php ${covovaxTotalCost} </p> <p>As you have confirmed and agreed to upon reserving the vaccine orders, the total amount will be fully shouldered by you via the approved payment method/scheme that you had with your company.</p> <p>Please advise your preferred payment scheme by replying to this email. You will be asked to sign/agree to an Authority to Deduct form.</p> <br /> <p>Thank you.</p> <p>${company} HR Department/Management</p>`, // html body
   });
 
-  console.log("Message sent: %s", info.messageId);
+  // console.log("Message sent: %s", info.messageId);
   // // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 }
 

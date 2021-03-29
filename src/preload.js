@@ -28,7 +28,7 @@ ipcRenderer.on('res-upload-excel', (event, arg) => {
   let target = document.getElementById("tse");
   let recordCount = document.getElementById("recordCount");
 
-  recordCount.innerHTML = "<span style='color: green;'>Total Record: "+arg+"</span>"
+  // recordCount.innerHTML = "<span style='color: green;'>Total Record: "+arg+"</span>"
   
   if(arg != 0 && target.style.display === "none"){
     target.style.display = "block";
@@ -40,5 +40,14 @@ ipcRenderer.on('res-upload-excel', (event, arg) => {
 
 
 ipcRenderer.on('verify-smtp-connection-response', (event, arg) => {
+  document.getElementById("spinnerVerfifyconnection").style.display = "none";
+
   document.getElementById("connectionInfo").innerHTML = "<span style='color: black;'>"+arg+"</span>";
 });
+
+ipcRenderer.on("email-sent-response", (event, arg) => {
+  console.log(arg)
+  document.getElementById("connectionInfo").innerHTML = "<span style='color: black;'>"+arg+"</span>";
+  document.getElementById("spinnerVerfifyconnection").style.display = "none";
+});
+
