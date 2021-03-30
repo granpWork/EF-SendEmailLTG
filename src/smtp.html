@@ -16,31 +16,56 @@
         <form method="#" id="smtpForm" role="form" data-toggle="validator">
             <div class="mb-3">
                 <label for="inputHost" class="form-label">Host</label>
-                <input type="text" name="host" class="form-control" id="inputHost" data-error="You must have a Host." aria-describedby="hostHelp" required>
+                <input type="text" name="host" class="form-control smtpinputclick" id="inputHost" data-error="You must have a Host." aria-describedby="hostHelp" required>
                 <div id="hostHelp" class="form-text">Ex. smtp.service-provider.com</div>
             </div>
             <div class="mb-3">
                 <label for="inputUsername" class="form-label">Username</label>
-                <input type="email" name="username" class="form-control" id="inputUsername" data-error="You must have a Username." aria-describedby="usernameHelp" required>
+                <input type="email" name="username" class="form-control smtpinputclick" id="inputUsername" data-error="You must have a Username." aria-describedby="usernameHelp" required>
                 <div id="usernameHelp" class="form-text">Ex. smtp.service-provider.com</div>
             </div>
             <div class="mb-3">
                 <label for="inputPassword" class="form-label">Password</label>
-                <input type="password" name="password" class="form-control" id="inputPassword" data-error="You must have a password." aria-describedby="passwordHelp" required>
+                <input type="password" name="password" class="form-control smtpinputclick" id="inputPassword" data-error="You must have a password." aria-describedby="passwordHelp" required>
                 
             </div>
             <div class="mb-3">
                 <label for="inputPortNumber" class="form-label">Port</label>
-                <input type="text" name="port" class="form-control" id="inputPortNumber" data-error="You must have a port." aria-describedby="portHelp" required>
+                <input type="text" name="port" class="form-control smtpinputclick" id="inputPortNumber" data-error="You must have a port." aria-describedby="portHelp" required>
                 <div id="portHelp" class="form-text">Ex. 587</div>
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Submit</button>
-        </form>
+            
 
-        <div id="updateRes" style="color: green;"></div>
+            <div class="row row-cols-auto">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                </div>
+            </div>
+        </form>
+        
+
+        <div id="updateResponse" style="color: green;"></div>
+        <div class="row row-cols-auto" style="margin-top: 10px;">
+            <div class="col">
+                <input type='button' id='smtp_verifyConnection' class='btn btn-outline-success' value='Verify Connection'>
+            </div>
+            <div class="col">
+                <div class="row row-cols-auto" style="margin-top: 10px;">
+                    <div id="SMTP_spinnerVerfifyconnection" class="spinner-border text-success col" role="status">
+                        <span class="sr-only"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
+        
+
+        <div id="connectionInfo"></div>
     </div>
 
     <!-- You can also require other files to run in this process -->
-    <script src="smtp.js"></script>
+    <script src="smtp.js" defer></script>
   </body>
 </html>

@@ -18,18 +18,23 @@
           <input type="file" name="file" class="form-control" id="fileInput" data-error="You must have a File excel." aria-describedby="fileHelp" required>
           <div id="fileHelp" class="form-text">Upload Excel File that contain Company Code, Email, Name,Moderna orders, Covovax orders. </div>
         </div>
-        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+
+        <div class="row row-cols-auto">
+          <div class="col">
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+          </div>
+          <div class="col">
+              <input type='button' id='sendEmailReadybtn' class='btn btn-outline-success' value='Send Email'>
+          </div>
+      </div>
       </form>
       <div id="recordCount"></div>
       <br>
       <br>
-      <div id="tse">
-        <input type='button' id='verifyConnection' class='btn btn-primary' value='Verify Connection'>
-        <input type='button' id='sendEmailbtn' class='btn btn-primary' value='Send Email'>
-      </div>
-      <div id="connectionInfo"></div>
-      <div style="margin-top: 10px;" id="spinnerVerfifyconnection" class="spinner-border text-success" role="status">
-        <span class="sr-only"></span>
+      <div class="row row-cols-auto" style="margin-top: 10px;">
+        <div id="sendEmailSpinner" class="spinner-border text-success col" role="status">
+            <span class="sr-only"></span>
+        </div>
       </div>
 
       <div id="emailSentResMsg"></div>
@@ -40,6 +45,6 @@
     <input type="hidden" id="h_password">
     <input type="hidden" id="h_port">
     <!-- You can also require other files to run in this process -->
-    <script src="./renderer.js"></script>
+    <script src="renderer.js"></script>
   </body>
 </html>
